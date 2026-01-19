@@ -1,0 +1,102 @@
+:root {
+  font-family: 'Georgia', 'Garamond', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+
+  color-scheme: light;
+  color: #292524;
+  background-color: #fffbf7;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  /* Wedding theme colors */
+  --primary: #b45309;
+  --primary-dark: #92400e;
+  --primary-light: #dbeafe;
+  --accent: #d97706;
+  --text-primary: #292524;
+  --text-secondary: #78716c;
+}
+
+a {
+  font-weight: 600;
+  color: #b45309;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #92400e;
+  text-decoration: underline;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #fffbf7, #fef3c7, #fffbf7);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Georgia', 'Garamond', serif;
+  color: #78350f;
+}
+
+button {
+  border-radius: 12px;
+  border: none;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 600;
+  font-family: inherit;
+  background-color: #b45309;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(180, 83, 9, 0.2);
+}
+
+button:hover {
+  background-color: #92400e;
+  box-shadow: 0 4px 12px rgba(180, 83, 9, 0.3);
+  transform: translateY(-2px);
+}
+
+button:focus,
+button:focus-visible {
+  outline: 3px solid #fbbf24;
+  outline-offset: 2px;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #292524;
+    background-color: #fffbf7;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fffbf7;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b45309;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #92400e;
+}
