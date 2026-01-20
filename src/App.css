@@ -10,6 +10,15 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0.05em;
 }
 
+/* Royal Color Palette */
+:root {
+  --royal-purple-dark: #4c1d95;
+  --royal-purple-medium: #6b21a8;
+  --royal-purple-light: #8b5cf6;
+  --royal-gold: #D4AF37;
+  --royal-gold-light: #FFD700;
+}
+
 /* Animations */
 @keyframes fadeInDown {
   from {
@@ -25,7 +34,7 @@ h1, h2, h3, h4, h5, h6 {
 @keyframes slideInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -42,6 +51,33 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.6);
+  }
+}
+
+@keyframes rotate3d {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  100% {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
+}
+
 .animate-fade-in-down {
   animation: fadeInDown 0.8s ease-out;
 }
@@ -54,20 +90,42 @@ h1, h2, h3, h4, h5, h6 {
   animation: fadeIn 0.8s ease-out;
 }
 
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* 3D Card Effects */
+.perspective {
+  perspective: 1000px;
+}
+
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease-out;
+}
+
+.card-3d:hover {
+  transform: rotateX(5deg) rotateY(-5deg) scale(1.05);
+}
+
 /* Elegant hover effects */
 .card-hover {
   transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .card-hover:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+  transform: translateY(-12px);
+  box-shadow: 0 30px 60px rgba(212, 175, 55, 0.2) !important;
 }
 
 /* Decorative divider */
 .divider-gold {
   height: 3px;
-  background: linear-gradient(to right, #d97706, #b45309);
+  background: linear-gradient(to right, #D4AF37, #FFD700);
   width: 60px;
 }
 
@@ -83,10 +141,45 @@ button:hover {
 
 /* Input focus styles */
 input:focus {
-  box-shadow: inset 0 0 0 1px rgba(217, 119, 6, 0.3);
+  box-shadow: inset 0 0 0 2px rgba(212, 175, 55, 0.3);
 }
 
 /* Section spacing */
 section {
   transition: all 0.4s ease;
+}
+
+/* Royal theme text gradient */
+.text-gradient-royal {
+  background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Masjid card shine effect */
+.card-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-shine::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 75%, transparent);
+  background-size: 50px 50px;
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
 }
