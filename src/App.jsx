@@ -88,145 +88,147 @@ export default function MasjidApp() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 pb-10">
+    <div className="min-h-screen bg-gradient-to-b from-stone-50 to-white text-slate-900 pb-10">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold flex items-center gap-2 cursor-pointer hover:scale-105 transition-transform text-emerald-700" onClick={() => setView('discovery')}>
-            <MapPin size={28} />
-            <span>MasjidFinder</span>
+      <header className="sticky top-0 z-50 bg-gradient-to-r from-slate-900 to-slate-800 border-b-4 border-amber-600">
+        <div className="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
+          <h1 className="text-3xl font-bold flex items-center gap-3 cursor-pointer hover:scale-105 transition-transform text-amber-400" onClick={() => setView('discovery')}>
+            <MapPin size={32} strokeWidth={1.5} />
+            <span className="tracking-wide">MASJID FINDER</span>
           </h1>
-          <button onClick={() => setView(view === 'admin'? 'discovery' : 'admin')} className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg transition-all">
+          <button onClick={() => setView(view === 'admin'? 'discovery' : 'admin')} className="px-6 py-2 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-sm transition-all shadow-md hover:shadow-lg">
             {view === 'admin'? '✕ Close' : '⚙️ Admin'}
           </button>
         </div>
       </header>
 
       {dbError && view === 'discovery' && (
-        <div className="bg-amber-50 border-b border-amber-200 p-4 text-amber-800 flex items-center justify-center gap-2 text-sm font-semibold animate-fade-in-down">
+        <div className="bg-amber-50 border-b border-amber-300 p-4 text-amber-900 flex items-center justify-center gap-2 text-sm font-semibold">
           <Info size={16} /> Running in Demo Mode (Backend disconnected)
         </div>
       )}
 
       {view === 'discovery' && (
-        <main className="max-w-6xl mx-auto px-4 py-8">
-          {/* Heading Section */}
-          <div className="mb-10 animate-fade-in-down">
-            <h2 className="text-4xl font-bold text-slate-900 mb-2">Nearby Masjids</h2>
-            <p className="text-slate-600 text-lg">Find prayer times and jamaat schedules near you</p>
-          </div>
-
-          {/* Masjids Grid */}
-          {masjids.length === 0 ? (
-            <div className="rounded-2xl p-12 text-center bg-slate-50 border-2 border-dashed border-slate-300 animate-slide-in-up">
-              <MapPin size={48} className="mx-auto mb-4 text-slate-400" />
-              <p className="text-slate-600 text-lg">No masjids found nearby</p>
+        <main className="w-full">
+          {/* Hero Section */}
+          <section className="bg-gradient-to-b from-slate-900 to-slate-800 text-white py-16 px-6">
+            <div className="max-w-5xl mx-auto text-center">
+              <h2 className="text-5xl md:text-6xl font-light mb-4 tracking-wide">DISCOVER NEARBY MASJIDS</h2>
+              <div className="w-16 h-1 bg-amber-500 mx-auto mb-6"></div>
+              <p className="text-amber-100 text-xl md:text-2xl font-light max-w-3xl mx-auto">Find prayer times and jamaat schedules near you</p>
             </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {masjids.map((m, idx) => (
-                <div 
-                  key={m.id} 
-                  onClick={() => { setSelectedMasjid(m); setView('profile'); }} 
-                  className="bg-white rounded-xl shadow-md hover:shadow-xl border border-slate-200 overflow-hidden cursor-pointer card-hover animate-slide-in-up transition-all"
-                  style={{ animationDelay: `${idx * 0.1}s` }}
-                >
-                  {/* Card Header */}
-                  <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 p-4">
-                    <h3 className="font-bold text-xl text-white">{m.name}</h3>
-                  </div>
+          </section>
 
-                  {/* Card Body */}
-                  <div className="p-5 space-y-3">
-                    <div className="flex items-center gap-2 text-slate-600">
-                      <Navigation size={18} className="text-emerald-600" />
-                      <span className="font-semibold">{(m.dist_meters / 1000).toFixed(2)} km away</span>
+          {/* Main Content */}
+          <section className="max-w-6xl mx-auto px-6 py-16">
+            {/* Masjids Grid */}
+            {masjids.length === 0 ? (
+              <div className="rounded-lg p-16 text-center bg-stone-100 border border-stone-300">
+                <MapPin size={56} className="mx-auto mb-6 text-stone-400" />
+                <p className="text-stone-600 text-xl font-light">No masjids found nearby</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {masjids.map((m, idx) => (
+                  <div 
+                    key={m.id} 
+                    onClick={() => { setSelectedMasjid(m); setView('profile'); }} 
+                    className="bg-white rounded-none shadow-lg hover:shadow-2xl border border-stone-200 overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105"
+                    style={{ animationDelay: `${idx * 0.1}s` }}
+                  >
+                    {/* Card Header */}
+                    <div className="bg-gradient-to-r from-slate-900 to-slate-800 p-6 border-b-4 border-amber-600">
+                      <h3 className="font-light text-2xl text-amber-400 tracking-wide">{m.name}</h3>
                     </div>
-                    <div className="bg-emerald-50 rounded-lg p-3">
-                      <p className="text-xs text-slate-600 font-semibold uppercase tracking-wide mb-1">Next Prayer Times</p>
-                      <div className="flex gap-2 flex-wrap">
-                        {Object.entries(m.jamaat_times).slice(0, 3).map(([prayer, time]) => (
-                          <span key={prayer} className="bg-white px-2 py-1 rounded text-xs font-semibold text-emerald-700 border border-emerald-200">
-                            {prayer.slice(0, 3).toUpperCase()}: {time}
-                          </span>
-                        ))}
+
+                    {/* Card Body */}
+                    <div className="p-8 space-y-6">
+                      <div className="flex items-center gap-3 text-slate-700">
+                        <Navigation size={20} className="text-amber-600" strokeWidth={1.5} />
+                        <span className="font-light text-lg">{(m.dist_meters / 1000).toFixed(2)} km away</span>
                       </div>
+                      <div className="bg-stone-50 rounded-none p-5 border border-stone-200">
+                        <p className="text-xs text-slate-600 font-semibold uppercase tracking-widest mb-4">Prayer Times</p>
+                        <div className="space-y-2">
+                          {Object.entries(m.jamaat_times).slice(0, 3).map(([prayer, time]) => (
+                            <div key={prayer} className="flex justify-between items-center pb-2 border-b border-stone-200 last:border-b-0">
+                              <span className="capitalize font-light text-slate-700">{prayer}</span>
+                              <span className="font-semibold text-amber-700">{time}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <button className="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold py-3 rounded-none transition-colors shadow-md hover:shadow-lg">
+                        VIEW DETAILS
+                      </button>
                     </div>
-                    <button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 rounded-lg transition-colors mt-2">
-                      View Details
-                    </button>
                   </div>
-                </div>
-              ))}
-            </div>
-          )}
+                ))}
+              </div>
+            )}
+          </section>
         </main>
       )}
 
       {view === 'profile' && selectedMasjid && (
-        <main className="max-w-4xl mx-auto px-4 py-8">
-          <button onClick={() => setView('discovery')} className="mb-6 text-emerald-600 hover:text-emerald-700 flex items-center gap-2 font-semibold transition-all group">
-            <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" /> Back to Masjids
-          </button>
-
-          {/* Main Profile Card */}
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden animate-slide-in-up border border-slate-200">
-            {/* Header Section */}
-            <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 p-8 text-white">
-              <h2 className="text-4xl font-bold mb-2">{selectedMasjid.name}</h2>
-              <p className="text-emerald-100 flex items-center gap-2 text-lg">
-                <Navigation size={18} /> {(selectedMasjid.dist_meters / 1000).toFixed(2)} km from your location
-              </p>
+        <main className="w-full">
+          <section className="bg-gradient-to-b from-slate-900 to-slate-800 text-white py-8 px-6">
+            <div className="max-w-5xl mx-auto">
+              <button onClick={() => setView('discovery')} className="mb-6 text-amber-400 hover:text-amber-300 flex items-center gap-2 font-semibold transition-all group text-lg">
+                <ArrowLeft size={22} className="group-hover:-translate-x-1 transition-transform" strokeWidth={1.5} /> BACK
+              </button>
             </div>
+          </section>
 
-            {/* Prayer Times Section */}
-            <div className="p-8">
-              <h3 className="text-2xl font-bold text-slate-900 mb-6">Prayer Times Today</h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                <div className="space-y-3">
-                  {Object.entries(getAzanTimes(selectedMasjid.lat, selectedMasjid.lng)).slice(0, 3).map(([p, azan]) => (
-                    <div key={p} className="bg-slate-50 rounded-lg p-4 border border-slate-200">
-                      <div className="flex justify-between items-center">
-                        <span className="capitalize font-bold text-slate-700 text-lg">{p}</span>
-                        <div className="text-right">
-                          <p className="text-xs text-slate-500 mb-1">Azan</p>
-                          <p className="font-bold text-slate-900">{azan}</p>
-                        </div>
-                      </div>
-                      <div className="mt-3 pt-3 border-t border-slate-200 flex justify-between items-center">
-                        <span className="text-xs text-slate-500">Jamaat</span>
-                        <span className="font-bold text-emerald-600 text-lg">{selectedMasjid.jamaat_times[p]}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="space-y-3">
-                  {Object.entries(getAzanTimes(selectedMasjid.lat, selectedMasjid.lng)).slice(3, 5).map(([p, azan]) => (
-                    <div key={p} className="bg-slate-50 rounded-lg p-4 border border-slate-200">
-                      <div className="flex justify-between items-center">
-                        <span className="capitalize font-bold text-slate-700 text-lg">{p}</span>
-                        <div className="text-right">
-                          <p className="text-xs text-slate-500 mb-1">Azan</p>
-                          <p className="font-bold text-slate-900">{azan}</p>
-                        </div>
-                      </div>
-                      <div className="mt-3 pt-3 border-t border-slate-200 flex justify-between items-center">
-                        <span className="text-xs text-slate-500">Jamaat</span>
-                        <span className="font-bold text-emerald-600 text-lg">{selectedMasjid.jamaat_times[p]}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+          {/* Main Profile Section */}
+          <section className="max-w-5xl mx-auto px-6 py-12">
+            <div className="bg-white rounded-none shadow-xl overflow-hidden border border-stone-200">
+              {/* Header Section */}
+              <div className="bg-gradient-to-r from-slate-900 to-slate-800 p-12 text-white border-b-4 border-amber-600">
+                <h2 className="text-5xl font-light mb-4 tracking-wide">{selectedMasjid.name}</h2>
+                <p className="text-amber-200 flex items-center gap-3 text-lg font-light">
+                  <Navigation size={20} strokeWidth={1.5} /> {(selectedMasjid.dist_meters / 1000).toFixed(2)} km from your location
+                </p>
               </div>
 
-              {/* Location Button */}
-              <a href={`https://www.google.com/maps/search/?api=1&query=${selectedMasjid.lat},${selectedMasjid.lng}`} target="_blank" className="flex items-center justify-center gap-2 w-full bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-lg font-bold text-lg transition-all shadow-md hover:shadow-lg">
-                <Navigation size={22} /> Open in Google Maps
-              </a>
+              {/* Prayer Times Section */}
+              <div className="p-12">
+                <h3 className="text-4xl font-light text-slate-900 mb-2 tracking-wide">PRAYER TIMES TODAY</h3>
+                <div className="w-16 h-1 bg-amber-600 mb-12"></div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                  <div className="space-y-6">
+                    {Object.entries(getAzanTimes(selectedMasjid.lat, selectedMasjid.lng)).slice(0, 3).map(([p, azan]) => (
+                      <div key={p} className="border-l-4 border-amber-600 pl-6 py-2">
+                        <p className="text-xs text-slate-600 font-semibold uppercase tracking-widest mb-2">Azan</p>
+                        <h4 className="capitalize font-light text-2xl text-slate-900 mb-3">{p}</h4>
+                        <p className="text-3xl font-light text-slate-700">{azan}</p>
+                        <p className="text-xs text-slate-600 font-semibold uppercase tracking-widest mt-4 mb-1">Jamaat</p>
+                        <p className="text-2xl font-semibold text-amber-700">{selectedMasjid.jamaat_times[p]}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="space-y-6">
+                    {Object.entries(getAzanTimes(selectedMasjid.lat, selectedMasjid.lng)).slice(3, 5).map(([p, azan]) => (
+                      <div key={p} className="border-l-4 border-amber-600 pl-6 py-2">
+                        <p className="text-xs text-slate-600 font-semibold uppercase tracking-widest mb-2">Azan</p>
+                        <h4 className="capitalize font-light text-2xl text-slate-900 mb-3">{p}</h4>
+                        <p className="text-3xl font-light text-slate-700">{azan}</p>
+                        <p className="text-xs text-slate-600 font-semibold uppercase tracking-widest mt-4 mb-1">Jamaat</p>
+                        <p className="text-2xl font-semibold text-amber-700">{selectedMasjid.jamaat_times[p]}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Location Button */}
+                <a href={`https://www.google.com/maps/search/?api=1&query=${selectedMasjid.lat},${selectedMasjid.lng}`} target="_blank" className="flex items-center justify-center gap-3 w-full bg-amber-600 hover:bg-amber-700 text-white py-5 rounded-none font-bold text-lg transition-all shadow-md hover:shadow-lg">
+                  <Navigation size={24} strokeWidth={1.5} /> OPEN IN GOOGLE MAPS
+                </a>
+              </div>
             </div>
-          </div>
+          </section>
         </main>
       )}
 
@@ -246,58 +248,68 @@ function AdminPortal({ onSaved }) {
   };
 
   return (
-    <main className="max-w-4xl mx-auto px-4 py-8 animate-slide-in-up">
-      <h2 className="text-4xl font-bold text-slate-900 mb-8">Add New Masjid</h2>
-      <div className="bg-white rounded-2xl shadow-lg p-8 border border-slate-200">
-        <div className="space-y-6">
-          {/* Name Field */}
-          <div>
-            <label className="block text-slate-700 text-sm font-bold mb-2">Masjid Name *</label>
-            <input 
-              placeholder="Enter masjid name..." 
-              className="w-full p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-slate-900" 
-              onChange={e => setForm({...form, name: e.target.value})} 
-            />
-          </div>
-
-          {/* Location Field */}
-          <div>
-            <label className="block text-slate-700 text-sm font-bold mb-2">Location (Click on map) *</label>
-            <div className="h-64 rounded-lg overflow-hidden border border-slate-300 shadow-md">
-              <MapContainer center={[21.4225, 39.8262]} zoom={13} style={{ height: '100%' }}>
-                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                <LocationSelector onSelect={(lat, lng) => setForm({...form, lat, lng})} />
-              </MapContainer>
-            </div>
-            <p className="text-slate-600 text-sm mt-2">📍 Lat: {form.lat.toFixed(4)} | Lng: {form.lng.toFixed(4)}</p>
-          </div>
-
-          {/* Prayer Times Fields */}
-          <div>
-            <label className="block text-slate-700 text-sm font-bold mb-3">Prayer Jamaat Times</label>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'].map(p => (
-                <div key={p}>
-                  <label className="block text-slate-600 text-xs font-semibold capitalize mb-1">{p} Jamaat Time</label>
-                  <input 
-                    placeholder="e.g. 05:45 AM" 
-                    className="w-full p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-slate-900" 
-                    onChange={e => setForm({...form, timings: {...form.timings, [p]: e.target.value}})} 
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Submit Button */}
-          <button 
-            onClick={saveToDb} 
-            className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-lg font-bold text-lg transition-all shadow-md hover:shadow-lg mt-8"
-          >
-            💾 Save to Database
-          </button>
+    <main className="w-full">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-b from-slate-900 to-slate-800 text-white py-16 px-6">
+        <div className="max-w-5xl mx-auto text-center">
+          <h2 className="text-5xl md:text-6xl font-light mb-4 tracking-wide">ADD NEW MASJID</h2>
+          <div className="w-16 h-1 bg-amber-500 mx-auto"></div>
         </div>
-      </div>
+      </section>
+
+      {/* Form Section */}
+      <section className="max-w-4xl mx-auto px-6 py-12">
+        <div className="bg-white rounded-none shadow-xl p-12 border border-stone-200">
+          <div className="space-y-8">
+            {/* Name Field */}
+            <div>
+              <label className="block text-slate-900 text-sm font-semibold mb-3 uppercase tracking-wide">Masjid Name *</label>
+              <input 
+                placeholder="Enter masjid name..." 
+                className="w-full p-4 border border-stone-300 rounded-none focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-slate-900 bg-stone-50" 
+                onChange={e => setForm({...form, name: e.target.value})} 
+              />
+            </div>
+
+            {/* Location Field */}
+            <div>
+              <label className="block text-slate-900 text-sm font-semibold mb-3 uppercase tracking-wide">Location (Click on map) *</label>
+              <div className="h-80 rounded-none overflow-hidden border border-stone-300 shadow-lg mb-4">
+                <MapContainer center={[21.4225, 39.8262]} zoom={13} style={{ height: '100%' }}>
+                  <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                  <LocationSelector onSelect={(lat, lng) => setForm({...form, lat, lng})} />
+                </MapContainer>
+              </div>
+              <p className="text-slate-600 text-sm font-light">📍 Lat: {form.lat.toFixed(4)} | Lng: {form.lng.toFixed(4)}</p>
+            </div>
+
+            {/* Prayer Times Fields */}
+            <div>
+              <label className="block text-slate-900 text-sm font-semibold mb-6 uppercase tracking-wide">Prayer Jamaat Times</label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'].map(p => (
+                  <div key={p}>
+                    <label className="block text-slate-700 text-xs font-semibold capitalize mb-2 uppercase tracking-wider">{p} Jamaat Time</label>
+                    <input 
+                      placeholder="e.g. 05:45 AM" 
+                      className="w-full p-4 border border-stone-300 rounded-none focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-slate-900 bg-stone-50" 
+                      onChange={e => setForm({...form, timings: {...form.timings, [p]: e.target.value}})} 
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <button 
+              onClick={saveToDb} 
+              className="w-full bg-amber-600 hover:bg-amber-700 text-white py-4 rounded-none font-bold text-lg transition-all shadow-lg hover:shadow-xl mt-8 uppercase tracking-wide"
+            >
+              💾 SAVE TO DATABASE
+            </button>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
